@@ -25,7 +25,7 @@ def parse_args():
                         help="number of iterations between every optimization step")
     parser.add_argument("--target-update-freq", type=int, default=1000,
                         help="number of iterations between every target network update")
-    parser.add_argument("--use-double-dqn", type=bool, default=True, help="use double deep Q-learning")
+    parser.add_argument("--use-double-dqn", type=bool, default=False, help="use double deep Q-learning")
     # e-greedy exploration parameters
     parser.add_argument("--eps-start", type=float, default=1.0, help="e-greedy start threshold")
     parser.add_argument("--eps-end", type=float, default=0.02, help="e-greedy end threshold")
@@ -83,6 +83,7 @@ if __name__ == '__main__':
             action = env.action_space.sample()
 
         next_state, reward, done, _ = env.step(action)
+        env.render()
         agent.memory.add(state, action, reward, next_state, float(done))
         state = next_state
 
